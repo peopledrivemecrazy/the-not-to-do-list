@@ -37,24 +37,24 @@
 	</div>
 </form>
 
-<ul>
-	{#each data.todos as todo}
-		<li class="grid">
-			{todo}
-			<form use:enhance method="post">
-				<input
-					hidden
-					name="todos"
-					value={data.todos.length > 1 ? data.todos.filter((e) => e !== todo) : 'null'}
-				/>
-				<button class="outline contrast">Delete</button>
-			</form>
-		</li>
-	{/each}
-</ul>
-
-<style>
-	li {
-		align-items: center;
-	}
-</style>
+{#if data.todos.length}
+	<table class="striped">
+		<tbody>
+			{#each data.todos as todo}
+				<tr>
+					<th scope="row">{todo}</th>
+					<td>
+						<form use:enhance method="post">
+							<input
+								hidden
+								name="todos"
+								value={data.todos.length > 1 ? data.todos.filter((e) => e !== todo) : 'null'}
+							/>
+							<button class="outline contrast">Delete</button>
+						</form>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{/if}
