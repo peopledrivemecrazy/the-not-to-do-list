@@ -40,9 +40,7 @@
 <ul>
 	{#each data.todos as todo}
 		<li class="grid">
-			<p>
-				{todo}
-			</p>
+			{todo}
 			<form use:enhance method="post">
 				<input
 					hidden
@@ -57,8 +55,6 @@
 
 <style>
 	li {
-		display: flex;
-		gap: 1em;
 		align-items: center;
 	}
 </style>
