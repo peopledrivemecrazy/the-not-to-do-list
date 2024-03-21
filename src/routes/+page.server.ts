@@ -33,7 +33,8 @@ export const actions = {
 			content,
 			name: 'notodo',
 			type: 'TXT',
-			zone_id: CF_ZONE_ID
+			zone_id: CF_ZONE_ID,
+			ttl: 60,
 		});
 		return { success: !!editTXTRecord.id };
 	}
