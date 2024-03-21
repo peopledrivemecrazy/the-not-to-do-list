@@ -1,38 +1,44 @@
-# create-svelte
+# Why?
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+![alt text](image.png)
+https://twitter.com/wesbos/status/1769770742273417590
 
-## Creating a project
+# Setup
 
-If you're seeing this, you've probably already done this step. Congrats!
+`pnpm i` or `npm i`
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+This project uses Sveltekit and PicoCSS for css.
 
-# create a new project in my-app
-npm create svelte@latest my-app
+Cloudflare wrapper for interacting with DNS records.
+
+# env variables
+
+```
+CF_API_TOKEN
+CF_ZONE_ID
+CLOUDFLARE_API_KEY
+CLOUDFLARE_EMAIL
+DNS_TXT_RECORD_ID
 ```
 
-## Developing
+Create your new TXT record with a name of your choice, I have hardcoded to `notodo` see `+page.server.ts` under `actions`.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Obtaining TXT record id 
 
-```bash
-npm run dev
+### Noob way
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+Use dev tools -> inspect the edit button look for the `aria-controls` attribute just remove `-dns-edit-row`
+
+![alt text](image-1.png)
+
+### Hackerman way
+
+```ts
+    const recordsList = await cloudflare.dns.records.list({
+		zone_id: CF_ZONE_ID
+	});
+ 	recordsList.result.filter((e) => {
+		if (e.type === 'TXT') console.log({ name: e.name, id: e.id });
+	}); // find your record and id
+     
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
